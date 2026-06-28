@@ -4,18 +4,89 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Undangan Pernikahan</title>
-    <style>
-        body { font-family: 'Arial', sans-serif; text-align: center; padding: 50px; background-color: #f9f9f9; }
-        .card { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-width: 500px; margin: auto; }
-        h1 { color: #333; }
-    </style>
     
-    </head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TCZ1QP45B5"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-TCZ1QP45B5');
+    </script>
+
+    <!-- Google Fonts untuk tampilan elegan -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #fdfaf6;
+            font-family: 'Montserrat', sans-serif;
+            color: #4a4a4a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            border: 1px solid #efe5de;
+        }
+        h1 {
+            font-family: 'Playfair Display', serif;
+            color: #d4af37; /* Warna Emas */
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        .names {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        .date {
+            font-size: 1.1rem;
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+        .btn {
+            background-color: #d4af37;
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            background-color: #b8962c;
+        }
+    </style>
+</head>
 <body>
+
     <div class="card">
-        <h1>Undangan Pernikahan</h1>
-        <p>Dengan memohon rahmat Allah SWT, kami mengundang Bapak/Ibu/Saudara/i untuk hadir di acara pernikahan kami.</p>
-        <p><strong>Nama Mempelai & Nama Mempelai</strong></p>
+        <p>Save The Date</p>
+        <h1>Pernikahan Kami</h1>
+        
+        <div class="names">
+            Nama Mempelai Pria <br> & <br> Nama Mempelai Wanita
+        </div>
+        
+        <p class="date">Sabtu, 28 Agustus 2026</p>
+        
+        <p>Kami sangat mengharapkan kehadiran Bapak/Ibu/Saudara/i untuk memberikan doa restu.</p>
+        
+        <br>
+        <a href="#" class="btn">Lihat Lokasi</a>
     </div>
+
 </body>
 </html>
