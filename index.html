@@ -51,14 +51,28 @@
   }
   #introVideo.show{ display:flex; }
 
-  /* pengganti sementara <video> asli -- ganti dengan tag <video> di produksi */
-   const video = document.createElement('video');
-  video.src = 'intro.mp4';
-  video.autoplay = true; video.playsInline = true;
-  video.addEventListener('ended', finishIntro);
-  introVideo.appendChild(video);
-  spawnPetals(20);
-  introVideo.classList.add('show');
+  #introVideoEl{
+    width:100%; height:100%;
+    object-fit: cover; /* video mengisi penuh layar tanpa gepeng */
+  }
+
+  /* tampil kalau video gagal dimuat (file belum ada / rusak) */
+  #videoError{
+    position:absolute; inset:0;
+    display:none;
+    align-items:center; justify-content:center;
+    color:#f3e9d2; text-align:center;
+    font-size:1rem; padding:20px;
+  }
+  #videoError.show{ display:flex; }
+
+  #skipBtn{
+    position:absolute; bottom:24px; right:24px;
+    z-index:5;
+    background:transparent; border:1px solid rgba(255,255,255,0.5);
+    color:#f3e9d2; padding:8px 16px; border-radius:20px;
+    font-family:'Cormorant Garamond',serif; cursor:pointer;
+  }
 
   /* ================= 3. HALAMAN UTAMA (setelah video selesai) ================= */
   #mainPage{
@@ -101,10 +115,12 @@
     <button id="btnBuka">Buka Undangan</button>
   </div>
 
-  <!-- 2. VIDEO / ANIMASI INTRO -->
+  <!-- 2. VIDEO INTRO ASLI -->
   <div id="introVideo">
-    <div id="fakeVideoStage">
-      <div id="fvText">Yunita &amp; Riyan</div>
+    <video id="introVideoEl" src="intro.mp4" playsinline webkit-playsinline></video>
+    <div id="videoError">
+      Video tidak ditemukan / gagal dimuat.<br>
+      Pastikan file <b>intro.mp4</b> ada satu folder dengan HTML ini.
     </div>
     <button id="skipBtn">Lewati</button>
   </div>
@@ -124,26 +140,19 @@
 <script>
 const cover = document.getElementById('cover');
 const introVideo = document.getElementById('introVideo');
-const fakeStage = document.getElementById('fakeVideoStage');
+const video = document.getElementById('introVideoEl');
+const videoError = document.getElementById('videoError');
 const mainPage = document.getElementById('mainPage');
 const btnBuka = document.getElementById('btnBuka');
 const skipBtn = document.getElementById('skipBtn');
 
-function spawnPetals(n){
-  const colors = ['#e7a9a0','#f2c9c0','#d98d7f'];
-  for(let i=0;i<n;i++){
-    const p = document.createElement('div');
-    p.className = 'fv-petal';
-    p.style.left = Math.random()*100 + '%';
-    p.style.background = colors[Math.floor(Math.random()*colors.length)];
-    p.style.animationDuration = (2.5 + Math.random()*2) + 's';
-    p.style.animationDelay = (Math.random()*1.5) + 's';
-    fakeStage.appendChild(p);
-  }
-}
+let finished = false; // jaga-jaga supaya finishIntro tidak double-jalan
 
 function finishIntro(){
+  if (finished) return;
+  finished = true;
   introVideo.classList.remove('show');
+  video.pause();
   document.body.classList.add('unlocked');   // <-- kunci scroll dibuka di sini
   mainPage.classList.add('reveal');
   window.scrollTo(0,0);
@@ -151,21 +160,33 @@ function finishIntro(){
 
 btnBuka.addEventListener('click', () => {
   cover.classList.add('hide');
-
-  // ======= DI SINI tempat kamu ganti dengan <video> asli =======
-  //Contoh produksi:
-  const video = document.createElement('video');
-  video.src = 'intro.mp4';
-  video.autoplay = true; video.playsInline = true;
-  video.addEventListener('ended', finishIntro);
-  introVideo.appendChild(video);
-  spawnPetals(20);
   introVideo.classList.add('show');
 
-  // simulasi "durasi video" = 3.5 detik lalu otomatis lanjut
-  setTimeout(finishIntro, 3500);
+  // klik tombol ini terhitung "user gesture", jadi autoplay + suara diizinkan browser
+  video.muted = false;
+  const playPromise = video.play();
+
+  if (playPromise !== undefined) {
+    playPromise.catch(() => {
+      // kalau browser tetap menolak play dengan suara, coba lagi tanpa suara
+      video.muted = true;
+      video.play().catch(() => {
+        // video benar-benar gagal diputar (misal file belum diupload)
+        videoError.classList.add('show');
+      });
+    });
+  }
 });
 
+// video otomatis pindah ke halaman utama saat selesai diputar
+video.addEventListener('ended', finishIntro);
+
+// kalau file video tidak ketemu / error saat load
+video.addEventListener('error', () => {
+  videoError.classList.add('show');
+});
+
+// tombol "Lewati" tetap tersedia kalau tamu tidak mau nunggu videonya
 skipBtn.addEventListener('click', finishIntro);
 </script>
 
