@@ -176,12 +176,12 @@ btnBuka.addEventListener('click', () => {
   cover.classList.add('hide');
 
   // ======= DI SINI tempat kamu ganti dengan <video> asli =======
-  // Contoh produksi:
-  // const video = document.createElement('video');
-  // video.src = 'intro.mp4';
-  // video.autoplay = true; video.playsInline = true;
-  // video.addEventListener('ended', finishIntro);
-  // introVideo.appendChild(video);
+  //Contoh produksi:
+  const video = document.createElement('video');
+  video.src = 'intro.mp4';
+  video.autoplay = true; video.playsInline = true;
+  video.addEventListener('ended', finishIntro);
+  introVideo.appendChild(video);
   spawnPetals(20);
   introVideo.classList.add('show');
 
