@@ -2,97 +2,25 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>The Wedding of Justin & Sisca</title>
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --primary: #2d5a3d;
+    --primary: #2a5a3c;
     --gold: #c9a227;
-    --soft-green: #e8f0e9;
-    --dark: #1a2e22;
+    --soft: #eaf3eb;
+    --dark: #1c2e22;
   }
 
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
   body {
     font-family: 'Poppins', sans-serif;
-    background: var(--soft-green);
+    background: var(--soft);
     color: var(--dark);
     overflow-x: hidden;
     line-height: 1.6;
-  }
-
-  /* ========== ANIMASI BUNGA & KELOPAK ========== */
-  .petal {
-    position: fixed;
-    width: 18px;
-    height: 18px;
-    background: radial-gradient(circle at 30% 30%, #ff6b8a, #e83e6a);
-    border-radius: 50% 0 50% 50%;
-    opacity: 0.75;
-    pointer-events: none;
-    z-index: 50;
-    animation: fall linear infinite;
-  }
-
-  .petal:nth-child(odd) {
-    background: radial-gradient(circle at 30% 30%, #ff9a9e, #fad0c4);
-    border-radius: 0 50% 50% 50%;
-  }
-
-  .petal:nth-child(3n) {
-    background: radial-gradient(circle at 30% 30%, #ffd1a9, #ff9a76);
-  }
-
-  @keyframes fall {
-    0% {
-      transform: translateY(-10vh) rotate(0deg) scale(0.8);
-      opacity: 0;
-    }
-    10% { opacity: 0.8; }
-    90% { opacity: 0.6; }
-    100% {
-      transform: translateY(110vh) rotate(720deg) scale(1.1);
-      opacity: 0;
-    }
-  }
-
-  /* Bunga dekoratif di pojok */
-  .flower-corner {
-    position: absolute;
-    font-size: 2.8rem;
-    opacity: 0.85;
-    pointer-events: none;
-    z-index: 5;
-    animation: float 6s ease-in-out infinite;
-  }
-
-  .flower-corner.left-top { top: 20px; left: 10px; animation-delay: 0s; }
-  .flower-corner.right-top { top: 30px; right: 15px; animation-delay: 1.5s; }
-  .flower-corner.left-bottom { bottom: 100px; left: 15px; animation-delay: 3s; }
-  .flower-corner.right-bottom { bottom: 120px; right: 10px; animation-delay: 4.5s; }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0) rotate(-5deg); }
-    50% { transform: translateY(-15px) rotate(5deg); }
-  }
-
-  /* Bunga mekar di cover */
-  .bloom {
-    position: absolute;
-    font-size: 2.2rem;
-    animation: bloom 4s ease-in-out infinite;
-    pointer-events: none;
-  }
-
-  @keyframes bloom {
-    0%, 100% { transform: scale(0.9) rotate(0deg); opacity: 0.7; }
-    50% { transform: scale(1.15) rotate(8deg); opacity: 1; }
   }
 
   /* ========== COVER ========== */
@@ -100,342 +28,276 @@
     position: fixed;
     inset: 0;
     z-index: 9999;
-    background: linear-gradient(180deg, #d4e8d8 0%, #e8f0e9 40%, #f0f7f1 100%);
+    background: linear-gradient(180deg, #d8eadc 0%, #eaf3eb 50%, #f4f9f5 100%);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
     padding: 20px;
-    transition: opacity 0.8s ease, visibility 0.8s;
+    transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
     overflow: hidden;
   }
 
   #cover.hidden {
     opacity: 0;
     visibility: hidden;
+    transform: scale(1.1);
     pointer-events: none;
   }
 
-  .cover-photo {
-    width: 220px;
-    height: 280px;
-    border-radius: 110px 110px 40px 40px;
-    border: 4px solid var(--gold);
-    object-fit: cover;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-    margin-bottom: 20px;
+  .cover-bg-flowers {
+    position: absolute;
+    inset: 0;
+    background-image: 
+      radial-gradient(circle at 10% 20%, rgba(201,162,39,0.08) 0%, transparent 40%),
+      radial-gradient(circle at 90% 80%, rgba(42,90,60,0.07) 0%, transparent 40%);
+    pointer-events: none;
+  }
+
+  .cover-photo-wrap {
     position: relative;
     z-index: 2;
+    animation: photoFloat 4s ease-in-out infinite;
+  }
+
+  @keyframes photoFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  .cover-photo {
+    width: 210px;
+    height: 270px;
+    border-radius: 105px 105px 35px 35px;
+    border: 4px solid var(--gold);
+    object-fit: cover;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.18);
   }
 
   .cover-title {
     font-family: 'Great Vibes', cursive;
-    font-size: 2.8rem;
+    font-size: 2.9rem;
     color: var(--primary);
-    margin: 10px 0;
-    position: relative;
+    margin: 18px 0 6px;
     z-index: 2;
+    position: relative;
   }
 
   .cover-names {
     font-family: 'Playfair Display', serif;
-    font-size: 1.8rem;
-    color: var(--dark);
-    margin-bottom: 8px;
-    position: relative;
+    font-size: 1.7rem;
     z-index: 2;
+    position: relative;
   }
 
-  .cover-to {
-    font-size: 0.95rem;
-    color: #555;
-    margin: 15px 0 5px;
-    position: relative;
-    z-index: 2;
-  }
-
+  .cover-to { font-size: 0.95rem; color: #555; margin-top: 18px; z-index: 2; position: relative; }
   .guest-name {
-    font-size: 1.3rem;
+    font-size: 1.35rem;
     font-weight: 600;
     color: var(--primary);
-    margin-bottom: 25px;
-    position: relative;
+    margin: 6px 0 28px;
     z-index: 2;
+    position: relative;
   }
 
   .btn-open {
     background: linear-gradient(135deg, #b8941f, var(--gold));
     color: white;
     border: none;
-    padding: 14px 36px;
+    padding: 15px 40px;
     border-radius: 50px;
     font-size: 1.05rem;
     font-weight: 500;
     cursor: pointer;
-    box-shadow: 0 8px 20px rgba(201,162,39,0.35);
+    box-shadow: 0 10px 25px rgba(201,162,39,0.4);
     display: flex;
     align-items: center;
     gap: 10px;
-    transition: transform 0.2s, box-shadow 0.2s;
-    position: relative;
     z-index: 2;
-  }
-
-  .btn-open:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 25px rgba(201,162,39,0.45);
-  }
-
-  /* ========== MAIN CONTENT ========== */
-  #main {
-    display: none;
-    padding-bottom: 90px;
     position: relative;
+    transition: all 0.3s;
+  }
+  .btn-open:active { transform: scale(0.96); }
+
+  /* Decorative flowers on cover */
+  .deco-flower {
+    position: absolute;
+    font-size: 2.6rem;
+    opacity: 0.9;
+    animation: gentleFloat 5s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 1;
+  }
+  @keyframes gentleFloat {
+    0%, 100% { transform: translateY(0) rotate(-4deg); }
+    50% { transform: translateY(-18px) rotate(4deg); }
   }
 
+  /* ========== MAIN ========== */
+  #main {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.9s ease;
+    padding-bottom: 100px;
+  }
   #main.show {
-    display: block;
+    opacity: 1;
+    transform: translateY(0);
   }
 
   section {
-    padding: 50px 20px;
+    padding: 55px 20px;
     text-align: center;
     position: relative;
   }
 
   .section-title {
     font-family: 'Playfair Display', serif;
-    font-size: 1.8rem;
+    font-size: 1.85rem;
     color: var(--primary);
     margin-bottom: 8px;
   }
-
   .section-subtitle {
     font-size: 0.95rem;
     color: #666;
     margin-bottom: 30px;
   }
 
-  /* Couple Section */
+  /* Animasi muncul saat scroll */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Couple */
   .couple-card {
     background: white;
-    border-radius: 20px;
-    padding: 25px 20px;
-    margin: 20px auto;
+    border-radius: 22px;
+    padding: 28px 20px;
+    margin: 22px auto;
     max-width: 340px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
-    border: 1px solid rgba(201,162,39,0.2);
-    position: relative;
-    overflow: hidden;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.07);
+    border: 1px solid rgba(201,162,39,0.18);
   }
-
   .couple-photo {
-    width: 140px;
-    height: 170px;
-    border-radius: 70px 70px 25px 25px;
+    width: 145px;
+    height: 175px;
+    border-radius: 72px 72px 28px 28px;
     border: 3px solid var(--gold);
     object-fit: cover;
-    margin-bottom: 15px;
+    margin-bottom: 16px;
   }
-
   .couple-name {
     font-family: 'Great Vibes', cursive;
-    font-size: 2.2rem;
+    font-size: 2.3rem;
     color: var(--primary);
   }
-
-  .parent-info {
-    font-size: 0.9rem;
-    color: #555;
-    margin-top: 10px;
-    line-height: 1.5;
-  }
-
+  .parent-info { font-size: 0.92rem; color: #555; margin-top: 10px; }
   .and-symbol {
     font-family: 'Great Vibes', cursive;
-    font-size: 3rem;
+    font-size: 3.2rem;
     color: var(--gold);
-    margin: 15px 0;
+    margin: 10px 0;
   }
 
   /* Ayat */
   .ayat-box {
-    background: linear-gradient(135deg, #f8fbf8, #eef6ef);
-    border-left: 4px solid var(--gold);
-    padding: 25px 20px;
-    border-radius: 0 16px 16px 0;
-    max-width: 500px;
+    background: linear-gradient(135deg, #f7fbf8, #eef6ef);
+    border-left: 5px solid var(--gold);
+    padding: 26px 22px;
+    border-radius: 0 18px 18px 0;
+    max-width: 480px;
     margin: 0 auto;
     text-align: left;
   }
+  .ayat-arab { font-size: 1.28rem; line-height: 1.95; text-align: right; margin-bottom: 14px; }
+  .ayat-latin { font-size: 0.92rem; color: #444; font-style: italic; }
 
-  .ayat-arab {
-    font-size: 1.25rem;
-    line-height: 1.9;
-    text-align: right;
-    margin-bottom: 15px;
-    color: var(--dark);
-  }
-
-  .ayat-latin {
-    font-size: 0.9rem;
-    color: #444;
-    font-style: italic;
-  }
-
-  /* Event Cards */
+  /* Event */
   .event-card {
     background: white;
-    border-radius: 18px;
-    padding: 25px 20px;
+    border-radius: 20px;
+    padding: 26px 20px;
     margin: 18px auto;
     max-width: 340px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.06);
-    border-top: 4px solid var(--gold);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    border-top: 5px solid var(--gold);
   }
-
-  .event-type {
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    color: var(--gold);
-    font-weight: 600;
-    margin-bottom: 8px;
-  }
-
-  .event-date {
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: var(--primary);
-  }
-
-  .event-time, .event-place {
-    font-size: 0.95rem;
-    color: #555;
-    margin-top: 6px;
-  }
-
+  .event-type { font-size: 0.82rem; letter-spacing: 1.8px; color: var(--gold); font-weight: 600; text-transform: uppercase; margin-bottom: 8px; }
+  .event-date { font-size: 1.28rem; font-weight: 600; color: var(--primary); }
+  .event-time, .event-place { font-size: 0.95rem; color: #555; margin-top: 6px; }
   .btn-maps {
     display: inline-block;
-    margin-top: 15px;
+    margin-top: 16px;
     background: var(--primary);
     color: white;
-    padding: 10px 22px;
+    padding: 11px 24px;
     border-radius: 30px;
     text-decoration: none;
     font-size: 0.9rem;
   }
 
   /* Turut Mengundang */
-  .turut-section {
-    background: linear-gradient(180deg, #f0f7f1, #e8f0e9);
-  }
-
+  .turut-section { background: linear-gradient(180deg, #f0f7f1, #e8f0e9); }
   .turut-toggle {
     background: white;
     border: 2px solid var(--gold);
     color: var(--primary);
-    padding: 12px 28px;
+    padding: 12px 26px;
     border-radius: 40px;
-    font-size: 1rem;
+    font-size: 0.98rem;
     font-weight: 500;
     cursor: pointer;
-    margin: 10px;
+    margin: 8px;
     transition: all 0.3s;
   }
-
-  .turut-toggle.active {
-    background: var(--gold);
-    color: white;
-  }
-
-  .turut-content {
-    display: none;
-    margin-top: 25px;
-    animation: fadeIn 0.4s ease;
-  }
-
-  .turut-content.show {
-    display: block;
-  }
-
+  .turut-toggle.active { background: var(--gold); color: white; }
+  .turut-content { display: none; margin-top: 22px; }
+  .turut-content.show { display: block; animation: fadeUp 0.5s ease; }
   .turut-side {
     background: white;
-    border-radius: 16px;
-    padding: 20px;
-    margin: 15px auto;
+    border-radius: 18px;
+    padding: 22px;
+    margin: 14px auto;
     max-width: 340px;
     text-align: left;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+    box-shadow: 0 8px 22px rgba(0,0,0,0.05);
   }
+  .turut-side h4 { color: var(--gold); font-size: 1.1rem; margin-bottom: 12px; border-bottom: 1px solid #eee; padding-bottom: 8px; }
+  .turut-side ul { list-style: none; }
+  .turut-side li { padding: 7px 0; font-size: 0.95rem; border-bottom: 1px dashed #eee; }
+  .turut-side li:last-child { border-bottom: none; }
 
-  .turut-side h4 {
-    color: var(--gold);
-    font-size: 1.1rem;
-    margin-bottom: 12px;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 8px;
-  }
-
-  .turut-side ul {
-    list-style: none;
-    padding-left: 0;
-  }
-
-  .turut-side li {
-    padding: 6px 0;
-    font-size: 0.95rem;
-    color: #444;
-    border-bottom: 1px dashed #eee;
-  }
-
-  .turut-side li:last-child {
-    border-bottom: none;
-  }
-
-  /* Story */
-  .story-item {
+  /* Story & Hadiah */
+  .story-item, .rekening {
     background: white;
     border-radius: 16px;
     padding: 20px;
-    margin: 15px auto;
+    margin: 14px auto;
     max-width: 340px;
-    text-align: left;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+    box-shadow: 0 7px 20px rgba(0,0,0,0.05);
   }
-
-  .story-date {
-    font-size: 0.85rem;
-    color: var(--gold);
-    font-weight: 600;
-  }
-
-  /* Gift */
-  .rekening {
-    background: white;
-    border-radius: 14px;
-    padding: 18px;
-    margin: 12px auto;
-    max-width: 320px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-  }
-
+  .story-item { text-align: left; }
+  .story-date { font-size: 0.85rem; color: var(--gold); font-weight: 600; }
+  .rekening { display: flex; justify-content: space-between; align-items: center; }
   .btn-copy {
     background: var(--primary);
     color: white;
     border: none;
-    padding: 8px 16px;
+    padding: 9px 16px;
     border-radius: 20px;
     font-size: 0.85rem;
     cursor: pointer;
   }
 
-  /* Bottom Nav */
-  .bottom-nav {
+  /* Bottom Nav + Auto Scroll */
+  .bottom-bar {
     position: fixed;
     bottom: 0;
     left: 0;
@@ -443,35 +305,45 @@
     background: white;
     display: flex;
     justify-content: space-around;
-    padding: 12px 0 18px;
-    box-shadow: 0 -5px 20px rgba(0,0,0,0.08);
+    padding: 11px 0 16px;
+    box-shadow: 0 -6px 25px rgba(0,0,0,0.08);
     z-index: 100;
-    border-radius: 20px 20px 0 0;
+    border-radius: 22px 22px 0 0;
   }
-
   .nav-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-size: 0.7rem;
+    font-size: 0.68rem;
     color: #777;
     text-decoration: none;
-    gap: 4px;
+    gap: 3px;
   }
+  .nav-item.active { color: var(--primary); }
+  .nav-item span { font-size: 1.25rem; }
 
-  .nav-item.active {
-    color: var(--primary);
+  .auto-scroll-btn {
+    position: fixed;
+    bottom: 95px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #4a7c59;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    z-index: 90;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+    cursor: pointer;
+    display: none;
   }
+  .auto-scroll-btn.show { display: block; }
 
-  .nav-item span {
-    font-size: 1.3rem;
-  }
-
-  /* Music Button */
   .music-btn {
     position: fixed;
     bottom: 100px;
-    right: 20px;
+    right: 18px;
     width: 48px;
     height: 48px;
     background: var(--gold);
@@ -481,120 +353,110 @@
     justify-content: center;
     color: white;
     font-size: 1.3rem;
-    box-shadow: 0 5px 15px rgba(201,162,39,0.4);
+    box-shadow: 0 6px 18px rgba(201,162,39,0.4);
     z-index: 90;
-    cursor: pointer;
     border: none;
+    cursor: pointer;
   }
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(15px); }
+  /* Falling petals - lebih natural */
+  .petal {
+    position: fixed;
+    width: 16px;
+    height: 16px;
+    background: radial-gradient(circle at 30% 30%, #ff7b9c, #e83e6a);
+    border-radius: 50% 0 50% 50%;
+    opacity: 0.7;
+    pointer-events: none;
+    z-index: 40;
+    animation: fall linear infinite;
+  }
+  .petal:nth-child(3n) { background: radial-gradient(circle at 30% 30%, #ffb88c, #ff8a5c); border-radius: 0 50% 50% 50%; }
+  .petal:nth-child(4n) { background: radial-gradient(circle at 30% 30%, #ff9eb5, #ff6b8a); }
+
+  @keyframes fall {
+    0% { transform: translateY(-5vh) rotate(0deg) scale(0.7); opacity: 0; }
+    10% { opacity: 0.75; }
+    100% { transform: translateY(105vh) rotate(680deg) scale(1); opacity: 0; }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
-  }
-
-  .fade-up {
-    animation: fadeIn 0.6s ease forwards;
-  }
-
-  @media (min-width: 500px) {
-    .cover-photo { width: 260px; height: 330px; }
-    .cover-title { font-size: 3.5rem; }
   }
 </style>
 </head>
 <body>
 
-<!-- Kelopak bunga yang jatuh -->
+<!-- Petals container -->
 <div id="petals"></div>
 
-<!-- ========== COVER ========== -->
+<!-- COVER -->
 <div id="cover">
-  <!-- Bunga di cover -->
-  <div class="bloom" style="top: 8%; left: 8%;">🌺</div>
-  <div class="bloom" style="top: 12%; right: 10%; animation-delay: 1s;">🌸</div>
-  <div class="bloom" style="bottom: 18%; left: 12%; animation-delay: 2s;">🌼</div>
-  <div class="bloom" style="bottom: 22%; right: 8%; animation-delay: 0.5s;">🌷</div>
-  <div class="bloom" style="top: 40%; left: 5%; font-size: 1.8rem; animation-delay: 1.5s;">💮</div>
-  <div class="bloom" style="top: 35%; right: 6%; font-size: 1.8rem; animation-delay: 2.5s;">🏵️</div>
-
-  <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=400&h=500&fit=crop" 
-       alt="Couple" class="cover-photo" 
-       onerror="this.src='https://via.placeholder.com/220x280/c9a227/ffffff?text=Couple'">
+  <div class="cover-bg-flowers"></div>
   
+  <div class="deco-flower" style="top:6%; left:6%; animation-delay:0s;">🌺</div>
+  <div class="deco-flower" style="top:9%; right:7%; animation-delay:1.2s; font-size:2.2rem;">🌸</div>
+  <div class="deco-flower" style="bottom:16%; left:8%; animation-delay:2s;">🌼</div>
+  <div class="deco-flower" style="bottom:19%; right:6%; animation-delay:0.7s;">🌷</div>
+  <div class="deco-flower" style="top:38%; left:3%; font-size:1.7rem; animation-delay:1.8s;">💮</div>
+  <div class="deco-flower" style="top:42%; right:4%; font-size:1.7rem; animation-delay:2.5s;">🏵️</div>
+
+  <div class="cover-photo-wrap">
+    <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=400&h=500&fit=crop" 
+         class="cover-photo" alt="Couple"
+         onerror="this.src='https://via.placeholder.com/210x270/c9a227/fff?text=Couple'">
+  </div>
+
   <div class="cover-title">Happy Wedding</div>
   <div class="cover-names">Justin & Sisca</div>
-  
   <div class="cover-to">Kepada Yth.</div>
   <div class="guest-name" id="guestName">Bapak/Ibu/Saudara/i</div>
-  
+
   <button class="btn-open" onclick="openInvitation()">
     <span>✉</span> Buka Sampul
   </button>
 </div>
 
-<!-- ========== MAIN CONTENT ========== -->
+<!-- MAIN -->
 <div id="main">
-  
-  <!-- Bunga pojok di main -->
-  <div class="flower-corner left-top">🌺</div>
-  <div class="flower-corner right-top">🌸</div>
-  <div class="flower-corner left-bottom">🌼</div>
-  <div class="flower-corner right-bottom">🌷</div>
-
-  <!-- Salam & Couple -->
   <section id="home">
-    <p style="font-size:1.1rem; color:var(--primary); margin-bottom:10px;">السَّلاَمُ عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ</p>
-    <p style="max-width:400px; margin:0 auto 30px; font-size:0.95rem; color:#555;">
+    <p style="font-size:1.15rem; color:var(--primary); margin-bottom:12px;">السَّلاَمُ عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ</p>
+    <p class="reveal" style="max-width:400px; margin:0 auto 30px; font-size:0.95rem; color:#555;">
       Atas Rahmat Tuhan Yang Maha Esa, kami bermaksud mengundang Anda di acara Kami. 
       Merupakan suatu kehormatan dan kebahagiaan bagi kami sekeluarga apabila Bapak/Ibu/Saudara/i berkenan hadir.
     </p>
 
-    <div class="couple-card fade-up">
-      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=360&fit=crop" 
-           class="couple-photo" alt="Justin"
-           onerror="this.src='https://via.placeholder.com/140x170/2d5a3d/fff?text=Justin'">
+    <div class="couple-card reveal">
+      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=360&fit=crop" class="couple-photo" alt="Justin"
+           onerror="this.src='https://via.placeholder.com/145x175/2a5a3c/fff?text=Justin'">
       <div class="couple-name">Tobias Justin</div>
-      <div class="parent-info">
-        Putra dari Pasangan<br>
-        <strong>Ayah Justin & Ibu Justin</strong><br>
-        Beralamat di Jakarta
-      </div>
+      <div class="parent-info">Putra dari Pasangan<br><strong>Ayah Justin & Ibu Justin</strong><br>Beralamat di Jakarta</div>
     </div>
 
-    <div class="and-symbol">&</div>
+    <div class="and-symbol reveal">&</div>
 
-    <div class="couple-card fade-up">
-      <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&h=360&fit=crop" 
-           class="couple-photo" alt="Sisca"
-           onerror="this.src='https://via.placeholder.com/140x170/c9a227/fff?text=Sisca'">
+    <div class="couple-card reveal">
+      <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&h=360&fit=crop" class="couple-photo" alt="Sisca"
+           onerror="this.src='https://via.placeholder.com/145x175/c9a227/fff?text=Sisca'">
       <div class="couple-name">Sisca Chol</div>
-      <div class="parent-info">
-        Putri dari Pasangan<br>
-        <strong>Ayah Sisca & Ibu Sisca</strong><br>
-        Beralamat di Jakarta
-      </div>
+      <div class="parent-info">Putri dari Pasangan<br><strong>Ayah Sisca & Ibu Sisca</strong><br>Beralamat di Jakarta</div>
     </div>
   </section>
 
-  <!-- Ayat -->
-  <section style="background:#f8fbf8;">
-    <div class="ayat-box">
-      <div class="ayat-arab">
-        وَمِنْ اٰيٰتِهٖٓ اَنْ خَلَقَ لَكُمْ مِّنْ اَنْفُسِكُمْ اَزْوَاجًا لِّتَسْكُنُوْٓا اِلَيْهَا وَجَعَلَ بَيْنَكُمْ مَّوَدَّةً وَّرَحْمَةًۗ
-      </div>
-      <div class="ayat-latin">
-        "Di antara tanda-tanda (kebesaran)-Nya ialah bahwa Dia menciptakan pasangan-pasangan untukmu dari (jenis) dirimu sendiri agar kamu merasa tenteram kepadanya. Dia menjadikan di antaramu rasa cinta dan kasih sayang."
-      </div>
+  <section style="background:#f7fbf8;">
+    <div class="ayat-box reveal">
+      <div class="ayat-arab">وَمِنْ اٰيٰتِهٖٓ اَنْ خَلَقَ لَكُمْ مِّنْ اَنْفُسِكُمْ اَزْوَاجًا لِّتَسْكُنُوْٓا اِلَيْهَا وَجَعَلَ بَيْنَكُمْ مَّوَدَّةً وَّرَحْمَةًۗ</div>
+      <div class="ayat-latin">"Di antara tanda-tanda (kebesaran)-Nya ialah bahwa Dia menciptakan pasangan-pasangan untukmu dari (jenis) dirimu sendiri agar kamu merasa tenteram kepadanya. Dia menjadikan di antaramu rasa cinta dan kasih sayang."</div>
       <p style="margin-top:12px; font-size:0.85rem; color:var(--gold);">— Ar-Rum: 21 —</p>
     </div>
   </section>
 
-  <!-- Save The Date -->
   <section id="acara">
-    <h2 class="section-title">Save The Date</h2>
-    <p class="section-subtitle">Kami mengundang Anda untuk hadir di hari bahagia kami</p>
+    <h2 class="section-title reveal">Save The Date</h2>
+    <p class="section-subtitle reveal">Kami mengundang Anda untuk hadir di hari bahagia kami</p>
 
-    <div class="event-card fade-up">
+    <div class="event-card reveal">
       <div class="event-type">Akad Nikah</div>
       <div class="event-date">Rabu, 18 Februari 2026</div>
       <div class="event-time">Pukul 08:00 WIB</div>
@@ -602,7 +464,7 @@
       <a href="https://maps.google.com" target="_blank" class="btn-maps">📍 Lihat Lokasi</a>
     </div>
 
-    <div class="event-card fade-up">
+    <div class="event-card reveal">
       <div class="event-type">Resepsi Pernikahan</div>
       <div class="event-date">Sabtu, 4 Maret 2026</div>
       <div class="event-time">Pukul 11:00 - 14:00 WIB</div>
@@ -611,12 +473,11 @@
     </div>
   </section>
 
-  <!-- ========== TURUT MENGUNDANG ========== -->
   <section class="turut-section" id="turut">
-    <h2 class="section-title">Turut Mengundang</h2>
-    <p class="section-subtitle">Dengan penuh rasa hormat, kami turut mengundang</p>
+    <h2 class="section-title reveal">Turut Mengundang</h2>
+    <p class="section-subtitle reveal">Dengan penuh rasa hormat, kami turut mengundang</p>
 
-    <div>
+    <div class="reveal">
       <button class="turut-toggle active" onclick="showTurut('pria')">Dari Pihak Pria</button>
       <button class="turut-toggle" onclick="showTurut('wanita')">Dari Pihak Wanita</button>
     </div>
@@ -650,98 +511,57 @@
     </div>
   </section>
 
-  <!-- Our Story -->
   <section id="story">
-    <h2 class="section-title">Our Story</h2>
-    <p class="section-subtitle">Momen indah kita berdua</p>
-
-    <div class="story-item fade-up">
+    <h2 class="section-title reveal">Our Story</h2>
+    <p class="section-subtitle reveal">Momen indah kita berdua</p>
+    <div class="story-item reveal">
       <div class="story-date">Pertama Bertemu</div>
       <h4 style="margin:8px 0; color:var(--primary);">Di Kereta Api</h4>
-      <p style="font-size:0.9rem; color:#555;">
-        Pertemuan tak terduga di sebuah kereta api membawa kami dalam cerita cinta yang tak terlupakan.
-      </p>
+      <p style="font-size:0.9rem; color:#555;">Pertemuan tak terduga di sebuah kereta api membawa kami dalam cerita cinta yang tak terlupakan.</p>
     </div>
-
-    <div class="story-item fade-up">
+    <div class="story-item reveal">
       <div class="story-date">05 Januari 2024</div>
       <h4 style="margin:8px 0; color:var(--primary);">Melanjutkan ke Pelaminan</h4>
-      <p style="font-size:0.9rem; color:#555;">
-        Setelah itu kami terus berhubungan dan memulai hubungan yang manis hingga akhirnya memutuskan untuk menuju pelaminan.
-      </p>
+      <p style="font-size:0.9rem; color:#555;">Setelah itu kami terus berhubungan dan memulai hubungan yang manis hingga akhirnya memutuskan untuk menuju pelaminan.</p>
     </div>
   </section>
 
-  <!-- Hadiah -->
-  <section id="hadiah" style="background:#f8fbf8;">
-    <h2 class="section-title">Titip Hadiah</h2>
-    <p class="section-subtitle">Doa restu Anda merupakan karunia yang sangat berarti. Jika memberi merupakan ungkapan kasih, Anda dapat memberi secara cashless.</p>
-
-    <div class="rekening">
-      <div>
-        <strong>BCA</strong><br>
-        <span style="font-size:0.95rem;">1234567890</span><br>
-        <small>a.n. Tobias Justin</small>
-      </div>
+  <section id="hadiah" style="background:#f7fbf8;">
+    <h2 class="section-title reveal">Titip Hadiah</h2>
+    <p class="section-subtitle reveal">Doa restu Anda merupakan karunia yang sangat berarti.</p>
+    <div class="rekening reveal">
+      <div><strong>BCA</strong><br><span>1234567890</span><br><small>a.n. Tobias Justin</small></div>
       <button class="btn-copy" onclick="copyText('1234567890')">Salin</button>
     </div>
-
-    <div class="rekening">
-      <div>
-        <strong>Mandiri</strong><br>
-        <span style="font-size:0.95rem;">0987654321</span><br>
-        <small>a.n. Sisca Chol</small>
-      </div>
+    <div class="rekening reveal">
+      <div><strong>Mandiri</strong><br><span>0987654321</span><br><small>a.n. Sisca Chol</small></div>
       <button class="btn-copy" onclick="copyText('0987654321')">Salin</button>
     </div>
   </section>
 
-  <!-- Ucapan -->
-  <section id="ucapan">
-    <h2 class="section-title">Kirim Ucapan</h2>
-    <p class="section-subtitle">Tinggalkan doa & ucapan terbaik untuk kami</p>
-    
-    <div style="max-width:340px; margin:0 auto; text-align:left;">
-      <input type="text" id="namaUcapan" placeholder="Nama Anda" 
-             style="width:100%; padding:12px 16px; border:1px solid #ddd; border-radius:10px; margin-bottom:12px; font-family:inherit;">
-      <textarea id="isiUcapan" rows="4" placeholder="Tulis ucapan & doa..." 
-                style="width:100%; padding:12px 16px; border:1px solid #ddd; border-radius:10px; margin-bottom:12px; font-family:inherit; resize:vertical;"></textarea>
-      <button onclick="kirimUcapan()" 
-              style="width:100%; background:var(--primary); color:white; border:none; padding:14px; border-radius:30px; font-size:1rem; cursor:pointer;">
-        Kirim Ucapan
-      </button>
-    </div>
-  </section>
-
-  <section style="padding:30px 20px 50px; text-align:center; font-size:0.9rem; color:#666;">
-    <p>Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir.</p>
-    <p style="margin-top:15px; font-family:'Great Vibes', cursive; font-size:1.8rem; color:var(--primary);">
+  <section style="padding:40px 20px 60px; text-align:center;">
+    <p class="reveal" style="font-size:0.95rem; color:#666; max-width:380px; margin:0 auto;">
+      Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir.
+    </p>
+    <p class="reveal" style="margin-top:20px; font-family:'Great Vibes', cursive; font-size:2rem; color:var(--primary);">
       Justin & Sisca
     </p>
   </section>
-
 </div>
 
-<!-- Music Button -->
+<!-- Auto Scroll Button -->
+<button class="auto-scroll-btn" id="autoScrollBtn" onclick="toggleAutoScroll()">▶ Auto Scroll</button>
+
+<!-- Music -->
 <button class="music-btn" id="musicBtn" onclick="toggleMusic()">🎵</button>
 
-<!-- Bottom Navigation -->
-<nav class="bottom-nav">
-  <a href="#home" class="nav-item active" onclick="setActive(this)">
-    <span>🏠</span> Home
-  </a>
-  <a href="#turut" class="nav-item" onclick="setActive(this)">
-    <span>👥</span> Turut
-  </a>
-  <a href="#acara" class="nav-item" onclick="setActive(this)">
-    <span>📅</span> Acara
-  </a>
-  <a href="#story" class="nav-item" onclick="setActive(this)">
-    <span>❤️</span> Story
-  </a>
-  <a href="#hadiah" class="nav-item" onclick="setActive(this)">
-    <span>🎁</span> Hadiah
-  </a>
+<!-- Bottom Nav -->
+<nav class="bottom-bar">
+  <a href="#home" class="nav-item active" onclick="setActive(this)"><span>🏠</span>Home</a>
+  <a href="#turut" class="nav-item" onclick="setActive(this)"><span>👥</span>Turut</a>
+  <a href="#acara" class="nav-item" onclick="setActive(this)"><span>📅</span>Acara</a>
+  <a href="#story" class="nav-item" onclick="setActive(this)"><span>❤️</span>Story</a>
+  <a href="#hadiah" class="nav-item" onclick="setActive(this)"><span>🎁</span>Hadiah</a>
 </nav>
 
 <audio id="bgMusic" loop>
@@ -749,54 +569,50 @@
 </audio>
 
 <script>
-  // Buat kelopak bunga yang jatuh
-  function createPetals() {
-    const container = document.getElementById('petals');
-    const petalCount = 18;
+  // Nama tamu dari URL
+  const params = new URLSearchParams(location.search);
+  document.getElementById('guestName').textContent = params.get('kpd') || 'Bapak/Ibu/Saudara/i';
 
-    for (let i = 0; i < petalCount; i++) {
-      const petal = document.createElement('div');
-      petal.classList.add('petal');
-      
-      // Posisi horizontal acak
-      petal.style.left = Math.random() * 100 + 'vw';
-      
-      // Ukuran acak
-      const size = 12 + Math.random() * 14;
-      petal.style.width = size + 'px';
-      petal.style.height = size + 'px';
-      
-      // Durasi jatuh acak
-      const duration = 8 + Math.random() * 12;
-      petal.style.animationDuration = duration + 's';
-      
-      // Delay acak
-      petal.style.animationDelay = Math.random() * 8 + 's';
-      
-      container.appendChild(petal);
+  // Buat kelopak
+  function createPetals() {
+    const box = document.getElementById('petals');
+    for (let i = 0; i < 16; i++) {
+      const p = document.createElement('div');
+      p.className = 'petal';
+      p.style.left = Math.random() * 100 + 'vw';
+      const size = 11 + Math.random() * 12;
+      p.style.width = size + 'px';
+      p.style.height = size + 'px';
+      p.style.animationDuration = (9 + Math.random() * 11) + 's';
+      p.style.animationDelay = Math.random() * 7 + 's';
+      box.appendChild(p);
     }
   }
 
-  // Ambil nama tamu dari URL
-  const urlParams = new URLSearchParams(window.location.search);
-  const namaTamu = urlParams.get('kpd') || 'Bapak/Ibu/Saudara/i';
-  document.getElementById('guestName').textContent = namaTamu;
-
   function openInvitation() {
     document.getElementById('cover').classList.add('hidden');
-    document.getElementById('main').classList.add('show');
-    createPetals(); // mulai jatuhkan kelopak setelah dibuka
+    const main = document.getElementById('main');
+    main.classList.add('show');
+    createPetals();
+    document.getElementById('autoScrollBtn').classList.add('show');
     
-    const music = document.getElementById('bgMusic');
-    music.play().catch(() => {});
+    // Reveal animation observer
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('active');
+      });
+    }, { threshold: 0.15 });
+    reveals.forEach(el => observer.observe(el));
+
+    // Play music
+    document.getElementById('bgMusic').play().catch(()=>{});
   }
 
   function showTurut(side) {
     document.getElementById('turut-pria').classList.remove('show');
     document.getElementById('turut-wanita').classList.remove('show');
-    
-    document.querySelectorAll('.turut-toggle').forEach(btn => btn.classList.remove('active'));
-    
+    document.querySelectorAll('.turut-toggle').forEach(b => b.classList.remove('active'));
     if (side === 'pria') {
       document.getElementById('turut-pria').classList.add('show');
       document.querySelectorAll('.turut-toggle')[0].classList.add('active');
@@ -807,50 +623,52 @@
   }
 
   function setActive(el) {
-    document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
     el.classList.add('active');
   }
 
-  function copyText(text) {
-    navigator.clipboard.writeText(text).then(() => {
-      alert('Nomor rekening berhasil disalin!');
-    });
+  function copyText(t) {
+    navigator.clipboard.writeText(t).then(() => alert('Nomor rekening berhasil disalin!'));
   }
 
-  function kirimUcapan() {
-    const nama = document.getElementById('namaUcapan').value;
-    const isi = document.getElementById('isiUcapan').value;
-    if (!nama || !isi) {
-      alert('Mohon isi nama dan ucapan terlebih dahulu');
-      return;
-    }
-    alert('Terima kasih ' + nama + '!\nUcapan Anda sudah kami terima.');
-    document.getElementById('namaUcapan').value = '';
-    document.getElementById('isiUcapan').value = '';
-  }
-
-  let isPlaying = false;
+  let isPlaying = true;
   function toggleMusic() {
-    const music = document.getElementById('bgMusic');
+    const m = document.getElementById('bgMusic');
     const btn = document.getElementById('musicBtn');
-    if (isPlaying) {
-      music.pause();
-      btn.textContent = '🎵';
-    } else {
-      music.play();
-      btn.textContent = '🔇';
-    }
+    if (isPlaying) { m.pause(); btn.textContent = '🎵'; }
+    else { m.play(); btn.textContent = '🔇'; }
     isPlaying = !isPlaying;
   }
 
-  // Smooth scroll
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
+  // Auto Scroll
+  let autoScroll = false;
+  let scrollInterval;
+  function toggleAutoScroll() {
+    const btn = document.getElementById('autoScrollBtn');
+    if (!autoScroll) {
+      autoScroll = true;
+      btn.textContent = '⏸ Stop Scroll';
+      scrollInterval = setInterval(() => {
+        window.scrollBy(0, 1.2);
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50) {
+          clearInterval(scrollInterval);
+          autoScroll = false;
+          btn.textContent = '▶ Auto Scroll';
+        }
+      }, 20);
+    } else {
+      autoScroll = false;
+      clearInterval(scrollInterval);
+      btn.textContent = '▶ Auto Scroll';
+    }
+  }
+
+  // Smooth nav
+  document.querySelectorAll('.nav-item').forEach(a => {
+    a.addEventListener('click', e => {
       e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
     });
   });
 </script>
