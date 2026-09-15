@@ -11,7 +11,6 @@
     --gold: #c9a227;
     --soft-green: #e8f0e9;
     --dark: #1a2e22;
-    --light: #f8fbf8;
   }
 
   * {
@@ -28,6 +27,74 @@
     line-height: 1.6;
   }
 
+  /* ========== ANIMASI BUNGA & KELOPAK ========== */
+  .petal {
+    position: fixed;
+    width: 18px;
+    height: 18px;
+    background: radial-gradient(circle at 30% 30%, #ff6b8a, #e83e6a);
+    border-radius: 50% 0 50% 50%;
+    opacity: 0.75;
+    pointer-events: none;
+    z-index: 50;
+    animation: fall linear infinite;
+  }
+
+  .petal:nth-child(odd) {
+    background: radial-gradient(circle at 30% 30%, #ff9a9e, #fad0c4);
+    border-radius: 0 50% 50% 50%;
+  }
+
+  .petal:nth-child(3n) {
+    background: radial-gradient(circle at 30% 30%, #ffd1a9, #ff9a76);
+  }
+
+  @keyframes fall {
+    0% {
+      transform: translateY(-10vh) rotate(0deg) scale(0.8);
+      opacity: 0;
+    }
+    10% { opacity: 0.8; }
+    90% { opacity: 0.6; }
+    100% {
+      transform: translateY(110vh) rotate(720deg) scale(1.1);
+      opacity: 0;
+    }
+  }
+
+  /* Bunga dekoratif di pojok */
+  .flower-corner {
+    position: absolute;
+    font-size: 2.8rem;
+    opacity: 0.85;
+    pointer-events: none;
+    z-index: 5;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .flower-corner.left-top { top: 20px; left: 10px; animation-delay: 0s; }
+  .flower-corner.right-top { top: 30px; right: 15px; animation-delay: 1.5s; }
+  .flower-corner.left-bottom { bottom: 100px; left: 15px; animation-delay: 3s; }
+  .flower-corner.right-bottom { bottom: 120px; right: 10px; animation-delay: 4.5s; }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-15px) rotate(5deg); }
+  }
+
+  /* Bunga mekar di cover */
+  .bloom {
+    position: absolute;
+    font-size: 2.2rem;
+    animation: bloom 4s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  @keyframes bloom {
+    0%, 100% { transform: scale(0.9) rotate(0deg); opacity: 0.7; }
+    50% { transform: scale(1.15) rotate(8deg); opacity: 1; }
+  }
+
   /* ========== COVER ========== */
   #cover {
     position: fixed;
@@ -41,6 +108,7 @@
     text-align: center;
     padding: 20px;
     transition: opacity 0.8s ease, visibility 0.8s;
+    overflow: hidden;
   }
 
   #cover.hidden {
@@ -57,6 +125,8 @@
     object-fit: cover;
     box-shadow: 0 15px 40px rgba(0,0,0,0.15);
     margin-bottom: 20px;
+    position: relative;
+    z-index: 2;
   }
 
   .cover-title {
@@ -64,6 +134,8 @@
     font-size: 2.8rem;
     color: var(--primary);
     margin: 10px 0;
+    position: relative;
+    z-index: 2;
   }
 
   .cover-names {
@@ -71,12 +143,16 @@
     font-size: 1.8rem;
     color: var(--dark);
     margin-bottom: 8px;
+    position: relative;
+    z-index: 2;
   }
 
   .cover-to {
     font-size: 0.95rem;
     color: #555;
     margin: 15px 0 5px;
+    position: relative;
+    z-index: 2;
   }
 
   .guest-name {
@@ -84,6 +160,8 @@
     font-weight: 600;
     color: var(--primary);
     margin-bottom: 25px;
+    position: relative;
+    z-index: 2;
   }
 
   .btn-open {
@@ -100,6 +178,8 @@
     align-items: center;
     gap: 10px;
     transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    z-index: 2;
   }
 
   .btn-open:hover {
@@ -107,17 +187,11 @@
     box-shadow: 0 12px 25px rgba(201,162,39,0.45);
   }
 
-  /* Floral decoration (CSS) */
-  .flower-deco {
-    position: absolute;
-    pointer-events: none;
-    opacity: 0.85;
-  }
-
   /* ========== MAIN CONTENT ========== */
   #main {
     display: none;
     padding-bottom: 90px;
+    position: relative;
   }
 
   #main.show {
@@ -152,6 +226,8 @@
     max-width: 340px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.06);
     border: 1px solid rgba(201,162,39,0.2);
+    position: relative;
+    overflow: hidden;
   }
 
   .couple-photo {
@@ -318,7 +394,7 @@
     border-bottom: none;
   }
 
-  /* Timeline / Story */
+  /* Story */
   .story-item {
     background: white;
     border-radius: 16px;
@@ -391,16 +467,6 @@
     font-size: 1.3rem;
   }
 
-  /* Animations */
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(15px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .fade-up {
-    animation: fadeIn 0.6s ease forwards;
-  }
-
   /* Music Button */
   .music-btn {
     position: fixed;
@@ -421,7 +487,15 @@
     border: none;
   }
 
-  /* Responsive */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-up {
+    animation: fadeIn 0.6s ease forwards;
+  }
+
   @media (min-width: 500px) {
     .cover-photo { width: 260px; height: 330px; }
     .cover-title { font-size: 3.5rem; }
@@ -430,8 +504,19 @@
 </head>
 <body>
 
+<!-- Kelopak bunga yang jatuh -->
+<div id="petals"></div>
+
 <!-- ========== COVER ========== -->
 <div id="cover">
+  <!-- Bunga di cover -->
+  <div class="bloom" style="top: 8%; left: 8%;">🌺</div>
+  <div class="bloom" style="top: 12%; right: 10%; animation-delay: 1s;">🌸</div>
+  <div class="bloom" style="bottom: 18%; left: 12%; animation-delay: 2s;">🌼</div>
+  <div class="bloom" style="bottom: 22%; right: 8%; animation-delay: 0.5s;">🌷</div>
+  <div class="bloom" style="top: 40%; left: 5%; font-size: 1.8rem; animation-delay: 1.5s;">💮</div>
+  <div class="bloom" style="top: 35%; right: 6%; font-size: 1.8rem; animation-delay: 2.5s;">🏵️</div>
+
   <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=400&h=500&fit=crop" 
        alt="Couple" class="cover-photo" 
        onerror="this.src='https://via.placeholder.com/220x280/c9a227/ffffff?text=Couple'">
@@ -450,6 +535,12 @@
 <!-- ========== MAIN CONTENT ========== -->
 <div id="main">
   
+  <!-- Bunga pojok di main -->
+  <div class="flower-corner left-top">🌺</div>
+  <div class="flower-corner right-top">🌸</div>
+  <div class="flower-corner left-bottom">🌼</div>
+  <div class="flower-corner right-bottom">🌷</div>
+
   <!-- Salam & Couple -->
   <section id="home">
     <p style="font-size:1.1rem; color:var(--primary); margin-bottom:10px;">السَّلاَمُ عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ</p>
@@ -458,7 +549,6 @@
       Merupakan suatu kehormatan dan kebahagiaan bagi kami sekeluarga apabila Bapak/Ibu/Saudara/i berkenan hadir.
     </p>
 
-    <!-- Mempelai Pria -->
     <div class="couple-card fade-up">
       <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=360&fit=crop" 
            class="couple-photo" alt="Justin"
@@ -473,7 +563,6 @@
 
     <div class="and-symbol">&</div>
 
-    <!-- Mempelai Wanita -->
     <div class="couple-card fade-up">
       <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&h=360&fit=crop" 
            class="couple-photo" alt="Sisca"
@@ -532,7 +621,6 @@
       <button class="turut-toggle" onclick="showTurut('wanita')">Dari Pihak Wanita</button>
     </div>
 
-    <!-- Pihak Pria -->
     <div id="turut-pria" class="turut-content show">
       <div class="turut-side">
         <h4>👨‍👩‍👧 Keluarga Besar Mempelai Pria</h4>
@@ -547,7 +635,6 @@
       </div>
     </div>
 
-    <!-- Pihak Wanita -->
     <div id="turut-wanita" class="turut-content">
       <div class="turut-side">
         <h4>👨‍👩‍👧 Keluarga Besar Mempelai Wanita</h4>
@@ -609,7 +696,7 @@
     </div>
   </section>
 
-  <!-- Ucapan / RSVP sederhana -->
+  <!-- Ucapan -->
   <section id="ucapan">
     <h2 class="section-title">Kirim Ucapan</h2>
     <p class="section-subtitle">Tinggalkan doa & ucapan terbaik untuk kami</p>
@@ -657,13 +744,40 @@
   </a>
 </nav>
 
-<!-- Audio (ganti dengan link musik kamu) -->
 <audio id="bgMusic" loop>
   <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-  // Ambil nama tamu dari URL (contoh: ?kpd=Bapak%20Budi)
+  // Buat kelopak bunga yang jatuh
+  function createPetals() {
+    const container = document.getElementById('petals');
+    const petalCount = 18;
+
+    for (let i = 0; i < petalCount; i++) {
+      const petal = document.createElement('div');
+      petal.classList.add('petal');
+      
+      // Posisi horizontal acak
+      petal.style.left = Math.random() * 100 + 'vw';
+      
+      // Ukuran acak
+      const size = 12 + Math.random() * 14;
+      petal.style.width = size + 'px';
+      petal.style.height = size + 'px';
+      
+      // Durasi jatuh acak
+      const duration = 8 + Math.random() * 12;
+      petal.style.animationDuration = duration + 's';
+      
+      // Delay acak
+      petal.style.animationDelay = Math.random() * 8 + 's';
+      
+      container.appendChild(petal);
+    }
+  }
+
+  // Ambil nama tamu dari URL
   const urlParams = new URLSearchParams(window.location.search);
   const namaTamu = urlParams.get('kpd') || 'Bapak/Ibu/Saudara/i';
   document.getElementById('guestName').textContent = namaTamu;
@@ -671,7 +785,8 @@
   function openInvitation() {
     document.getElementById('cover').classList.add('hidden');
     document.getElementById('main').classList.add('show');
-    // Auto play music (beberapa browser butuh interaksi dulu)
+    createPetals(); // mulai jatuhkan kelopak setelah dibuka
+    
     const music = document.getElementById('bgMusic');
     music.play().catch(() => {});
   }
@@ -709,7 +824,7 @@
       alert('Mohon isi nama dan ucapan terlebih dahulu');
       return;
     }
-    alert('Terima kasih ' + nama + '!\nUcapan Anda sudah kami terima.\n\n(Catatan: Ini demo. Di versi asli bisa disimpan ke database/Google Sheet)');
+    alert('Terima kasih ' + nama + '!\nUcapan Anda sudah kami terima.');
     document.getElementById('namaUcapan').value = '';
     document.getElementById('isiUcapan').value = '';
   }
